@@ -1,19 +1,19 @@
-module.exports = function toReadable (number) {
-	var th = ['','thousand','million', 'billion','trillion'];
-var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine'];
- var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen', 'seventeen','eighteen','nineteen'];
- var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
 
-function toWords(s) {
-    s = s.toString();
-    s = s.replace(/[\, ]/g,'');
-    if (s != parseFloat(s)) return 'not a number';
-    var x = s.indexOf('.');
+var th = ['','thousand','million', 'billion','trillion'];
+var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine'];
+var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen', 'seventeen','eighteen','nineteen'];
+var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+
+function toReadable(number) {
+    number = number.toString();
+    number = number.replace(/[\, ]/g,'');
+    if (number != parseFloat(number)) return 'not a number';
+    var x = number.indexOf('.');
     if (x == -1)
-        x = s.length;
+        x = number.length;
     if (x > 15)
         return 'too big';
-    var n = s.split('');
+    var n = number.split('');
     var str = '';
     var sk = 0;
     for (var i=0;   i < x;  i++) {
@@ -38,12 +38,13 @@ function toWords(s) {
         }
     }
 
-    if (x != s.length) {
-        var y = s.length;
+    if (x != number.length) {
+        var y = number.length;
         str += 'point ';
         for (var i=x+1; i<y; i++)
             str += dg[n[i]] +' ';
     }
     return str.replace(/\s+/g,' ');
 }
-}
+
+console.log(toReadable(23))
